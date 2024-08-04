@@ -1,8 +1,9 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { nanoid } from "nanoid";
-import { ErrorMessage } from "formik";
+
+import css from "./ContactForm.module.css";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(3, "To short").max(50, "To long").required("Required"),
@@ -32,24 +33,43 @@ const ContactForm = ({ onAddContact }) => {
       onSubmit={handleSubmit}
       validationSchema={validationSchema}
     >
-      <Form>
-        <div>
-          <label htmlFor={nameId}>Name</label>
-          <Field type="text" name="name" id={nameId} />
-          <ErrorMessage name="name" component="span" />
+      <Form className={css.form}>
+        <div className={css.formGroup}>
+          <label htmlFor={nameId} className={css.label}>
+            Name
+          </label>
+          <Field
+            type="text"
+            name="name"
+            id={nameId}
+            className={css.inputField}
+          />
+          <ErrorMessage
+            name="name"
+            component="span"
+            className={css.errorMessage}
+          />
         </div>
-        <div>
-          <label htmlFor={numberId}>Number</label>
+
+        <div className={css.formGroup}>
+          <label htmlFor={numberId} className={css.label}>
+            Number
+          </label>
           <Field
             type="tel"
             name="number"
             id={numberId}
-            placeholder="XXX-XX-XXX"
+            className={css.inputField}
           />
-          <ErrorMessage name="number" component="span" />
+          <ErrorMessage
+            name="number"
+            component="span"
+            className={css.errorMessage}
+          />
         </div>
-
-        <button type="submit">Add contact</button>
+        <div className={css.buttonWrapper}>
+          <button type="submit">Add contact</button>
+        </div>
       </Form>
     </Formik>
   );
