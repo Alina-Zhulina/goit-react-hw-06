@@ -19,14 +19,9 @@ const contactsConfig = {
   whitelist: ["items"],
 };
 
-const persistedContactsReducer = persistReducer(
-  contactsConfig,
-  contactsReducer
-);
-
 export const store = configureStore({
   reducer: {
-    contacts: persistedContactsReducer,
+    contacts: persistReducer(contactsConfig, contactsReducer),
     filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>
